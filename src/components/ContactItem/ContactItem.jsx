@@ -38,7 +38,7 @@ export default function ContactItem() {
   return reverseContacts.map(contact => (
     <ContactItemStyled key={contact.id}>
       <ContactItemName>{contact.name}:</ContactItemName>
-      <ContactItemNumber>{contact.phone}</ContactItemNumber>
+      <ContactItemNumber>{contact.number}</ContactItemNumber>
       <ContactItemButton
         id={contact.id}
         isLoading=""

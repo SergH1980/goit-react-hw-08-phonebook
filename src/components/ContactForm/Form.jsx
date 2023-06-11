@@ -40,7 +40,7 @@ const SignupSchem = Yup.object().shape({
     .min(3, 'Too Short!')
     .max(40, 'Too long!')
     .required(`Please enter valid information`),
-  phone: Yup.string()
+  number: Yup.string()
     .min(3, 'Too Short!')
     .max(30, 'Too long!')
     .required(`Please enter valid information`),
@@ -53,7 +53,7 @@ export default function ContactForm() {
   const operation = useSelector(selectOperation);
   return (
     <Formik
-      initialValues={{ name: '', phone: '' }}
+      initialValues={{ name: '', number: '' }}
       validationSchema={SignupSchem}
       onSubmit={(values, { resetForm }) => {
         const toCompareName = contact => {
@@ -72,20 +72,22 @@ export default function ContactForm() {
         <FormLabel htmlFor="name">Name</FormLabel>
         <Field
           name="name"
+          placeholder="Contact's information"
           // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
         <ErrorMessage name="name" component="div" />
-        <FormLabel htmlFor="phone">Number</FormLabel>
+        <FormLabel htmlFor="number">Number</FormLabel>
         <Field
-          type="tel"
-          name="phone"
+          type="number"
+          name="number"
+          placeholder="Phone number"
           // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-        <ErrorMessage name="phone" component="div" />
+        <ErrorMessage name="number" component="div" />
         <SubmitButton name="submit" type="submit" id="add">
           {operation === 'add' && !error ? `Loading...` : `Add contact`}
         </SubmitButton>
