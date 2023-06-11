@@ -1,6 +1,6 @@
 import { HomePageWrap } from './Home.styled';
 
-export function Home() {
+export default function Home() {
   return (
     <HomePageWrap>
       <h1>Welcome to my App!</h1>

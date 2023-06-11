@@ -3,9 +3,9 @@ import ContactList from 'components/ContactList/ContactList';
 import Section from 'components/Section/Section';
 import ContactFilter from '../../components/ContactFilter';
 
-export function Contacts() {
+export default function Contacts() {
   return (
-    <div>
+    <>
       <Section title="Phonebook">
         <ContactForm />
       </Section>
@@ -13,6 +13,6 @@ export function Contacts() {
         <ContactFilter />
         <ContactList />
       </Section>
-    </div>
+    </>
   );
 }
