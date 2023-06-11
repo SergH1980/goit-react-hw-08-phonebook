@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-
 import axios from 'axios';
 
 const toastSettings = {
@@ -18,13 +17,12 @@ function notifyDelete(data) {
   toast.error(`${data} was removed from contacts`, toastSettings);
 }
 
-axios.defaults.baseURL = 'https://647b700fd2e5b6101db14df1.mockapi.io';
-
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/contacts');
+
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

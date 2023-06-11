@@ -7,7 +7,7 @@ import {
   selectError,
   selectOperation,
 } from 'redux/contacts/contactSelectors';
-import { addContact } from 'redux/operations';
+import { addContact } from 'redux/contacts/contactsOperations';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -56,8 +56,6 @@ export default function ContactForm() {
       initialValues={{ name: '', phone: '' }}
       validationSchema={SignupSchem}
       onSubmit={(values, { resetForm }) => {
-
-
         const toCompareName = contact => {
           return contact.name === values.name;
         };

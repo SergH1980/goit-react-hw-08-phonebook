@@ -1,12 +1,7 @@
 import React from 'react';
 // import { toast } from 'react-toastify';
-// import { useDispatch, useSelector } from 'react-redux';
-import //   selectContactList,
-// selectIsLoading,
-//   selectError,
-//   selectOperation,
-'redux/contacts/contactSelectors';
-// import { addContact } from 'redux/operations';
+import { useDispatch } from 'react-redux';
+import { logIn } from 'redux/auth/authOperations';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -41,23 +36,28 @@ const SignupSchem = Yup.object().shape({
     .max(40, 'Too long!')
     .required(`Please enter valid information`),
   password: Yup.string()
-    .min(3, 'Too Short!')
+    .min(6, 'Too Short!')
     .max(30, 'Too long!')
     .required(`Please enter valid information`),
 });
 
 export default function LoginForm() {
-  //   const dispatch = useDispatch();
-  //   const contactList = useSelector(selectContactList);
-  //   const error = useSelector(selectError);
-  //   const operation = useSelector(selectOperation);
+  const dispatch = useDispatch();
+
   return (
     <div>
       <LoginFormHeader>Please enter valid credetials to login:</LoginFormHeader>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={SignupSchem}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(loginValues, { resetForm }) => {
+          dispatch(
+            logIn({
+              email: loginValues.email,
+              password: loginValues.password,
+            })
+          );
+          resetForm();
           //   const toCompareName = contact => {
           //     return contact.name === values.name;
           //   };
@@ -71,6 +71,7 @@ export default function LoginForm() {
         <Form>
           <FormLabel htmlFor="email">E-mail</FormLabel>
           <Field
+            type="email"
             name="email"
             // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -79,6 +80,7 @@ export default function LoginForm() {
           <ErrorMessage name="email" component="div" />
           <FormLabel htmlFor="password">Password</FormLabel>
           <Field
+            type="password"
             name="password"
             // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -87,7 +89,7 @@ export default function LoginForm() {
           <ErrorMessage name="password" component="div" />
           <SubmitButton name="submit" type="submit">
             {/* {operation === 'add' && !error ? `Loading...` : `Add contact`} */}
-            Register
+            Login
           </SubmitButton>
         </Form>
       </Formik>
