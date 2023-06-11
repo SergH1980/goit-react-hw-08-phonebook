@@ -55,7 +55,7 @@ export const fetchCurrentUser = createAsyncThunk(
 
     if (persistedToken === null) {
       // If there is no token, exit without performing any request
-      return thunkAPI.rejectWithValue('Unable to fetch user');
+      return thunkAPI.rejectWithValue('Unable to fetch previous user');
     }
 
     try {
