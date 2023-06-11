@@ -15,6 +15,8 @@ import Layout from 'components/Layout/Layout';
 import { PrivateRoute } from 'components/PrivateRoute';
 import { RestrictedRoute } from 'components/RestrictedRoute';
 
+import NotFound from 'pages/NotFound/NotFound';
+
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Contacts = lazy(() => import('../../pages/Contacts/Contacts'));
 const Registration = lazy(() =>
@@ -55,6 +57,7 @@ export default function App() {
               <RestrictedRoute redirectTo="/contacts" component={<Login />} />
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
       <ToastContainer />
