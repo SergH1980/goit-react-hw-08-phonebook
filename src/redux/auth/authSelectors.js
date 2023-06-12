@@ -6,4 +6,4 @@ export const selectToken = state => state.auth.token;
 
 export const selectEmail = state => state.auth.user.email;
 
-export const selectIsRefreshing = state => state.auth.isRefreshing;
+export const selectIsFetching = state => state.auth.isFetchning;

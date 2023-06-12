@@ -7,9 +7,11 @@ import {
 } from 'formik';
 
 export const Form = styled(FormStyle)`
-  width: 600px;
+  width: 500px;
   display: flex;
   flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 8px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
@@ -25,6 +27,13 @@ export const FormLabel = styled.label`
 export const Field = styled(FieldStyle)`
   width: 100%;
   margin-bottom: 2px;
+  height: 30px;
+  line-height: 30px;
+`;
+
+export const ContactFormButtonsWrap = styled.div`
+  display: flex;
+  gap: 20px;
 `;
 
 export const SubmitButton = styled.button`

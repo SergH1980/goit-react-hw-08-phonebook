@@ -3,6 +3,7 @@ import {
   fetchContacts,
   addContact,
   deleteContact,
+  editContact,
 } from 'redux/contacts/contactsOperations';
 
 const contactsInitialeState = {
@@ -59,6 +60,10 @@ const contactsSlice = createSlice({
         state.isLoading = true;
 
         state.operation = `${action.meta.arg.id}`;
+      })
+      .addCase(editContact.pending, (state, action) => {
+        state.isLoading = true;
+        state.operation = 'edit';
       })
       .addCase(fetchContacts.rejected, handleRejected)
       .addCase(addContact.rejected, handleRejected)

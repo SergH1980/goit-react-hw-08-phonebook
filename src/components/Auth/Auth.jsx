@@ -1,15 +1,15 @@
 import { AuthList } from './Auth.styled';
-import { Link } from 'react-router-dom';
+import { NavLink } from './Auth.styled';
 
 export default function Auth() {
   return (
     <AuthList>
       <li>
-        <Link to="/register">Register</Link>
+        <NavLink to="/register">Register</NavLink>
       </li>
       <li>/</li>
       <li>
-        <Link to="/login">Login</Link>
+        <NavLink to="/login">Login</NavLink>
       </li>
     </AuthList>
   );

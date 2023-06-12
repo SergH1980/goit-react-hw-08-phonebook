@@ -8,6 +8,8 @@ export const selectError = state => state.contacts.error;
 
 export const selectOperation = state => state.contacts.operation;
 
+export const selectIsEditing = state => state.contacts.isEditingContact;
+
 export const selectFilteredContacts = createSelector(
   [selectContactList, selectFilter],
   (contacts, filter) => {

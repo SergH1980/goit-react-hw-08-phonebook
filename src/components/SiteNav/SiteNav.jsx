@@ -1,5 +1,6 @@
 import { SiteNavList } from './SiteNav.styled';
-import { Link } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
+import { NavLink } from './SiteNav.styled';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
 
@@ -8,12 +9,12 @@ export default function SiteNav() {
   return (
     <SiteNavList>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/">Home</NavLink>
       </li>
 
       {isLoggedIn && (
         <div>
-          / <Link to="/contacts">Contacts</Link>
+          / <NavLink to="/contacts">Contacts</NavLink>
         </div>
       )}
     </SiteNavList>

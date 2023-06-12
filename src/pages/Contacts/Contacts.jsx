@@ -12,6 +12,9 @@ export default function Contacts() {
       <Section title="Contacts">
         <ContactFilter />
         <ContactList />
+        <button type="button" onClick={() => console.log(`editedContact`)}>
+          check editedContact
+        </button>
       </Section>
     </>
   );

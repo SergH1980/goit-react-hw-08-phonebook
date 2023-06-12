@@ -15,6 +15,11 @@ export const ContactItemNumber = styled.p`
   color: #1e1e99;
 `;
 
+export const ContactItemButtonsWrap = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
 export const ContactItemButton = styled.button`
   padding: 5px 10px;
 

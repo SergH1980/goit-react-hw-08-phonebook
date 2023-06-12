@@ -9,6 +9,8 @@ import {
 } from 'redux/contacts/contactSelectors';
 import { addContact } from 'redux/contacts/contactsOperations';
 
+// import Form
+
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -41,7 +43,7 @@ const SignupSchem = Yup.object().shape({
     .max(40, 'Too long!')
     .required(`Please enter valid information`),
   number: Yup.string()
-    .min(3, 'Too Short!')
+    .min(7, 'Too Short!')
     .max(30, 'Too long!')
     .required(`Please enter valid information`),
 });

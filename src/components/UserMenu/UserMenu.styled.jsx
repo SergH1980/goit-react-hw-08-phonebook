@@ -31,3 +31,25 @@ export const LogoutButton = styled.button`
     color: black;
   }
 `;
+
+export const AvatarImage = styled.div`
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #bcf0b6;
+
+  position: relative;
+`;
+
+export const AvatarLetter = styled.span`
+  margin: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 30px;
+  font-style: oblique 10deg;
+  color: red;
+`;

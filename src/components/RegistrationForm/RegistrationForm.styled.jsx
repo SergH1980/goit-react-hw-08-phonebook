@@ -29,6 +29,8 @@ export const FormLabel = styled.label`
 export const Field = styled(FieldStyle)`
   width: 100%;
   margin-bottom: 2px;
+  height: 30px;
+  line-height: 30px;
 `;
 
 export const SubmitButton = styled.button`
