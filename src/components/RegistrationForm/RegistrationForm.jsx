@@ -1,6 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/auth/authOperations';
+import { selectAuthOperation, selectError } from 'redux/auth/authSelectors';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -31,6 +32,8 @@ const SignupSchem = Yup.object().shape({
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();
+  const authOperation = useSelector(selectAuthOperation);
+  const error = useSelector(selectError);
 
   return (
     <div>
@@ -79,8 +82,7 @@ export default function RegistrationForm() {
           />
           <ErrorMessage name="password" component="div" />
           <SubmitButton name="submit" type="submit">
-            {/* {operation === 'add' && !error ? `Loading...` : `Add contact`} */}
-            Register
+            {authOperation === 'register' && !error ? `Loading...` : `Register`}
           </SubmitButton>
         </Form>
       </Formik>
