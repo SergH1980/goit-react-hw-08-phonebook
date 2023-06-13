@@ -72,7 +72,7 @@ const contactsSlice = createSlice({
       })
       .addCase(deleteContact.pending, (state, action) => {
         state.operation = `delete`;
-        state.operationId = `${action.meta.arg}`;
+        state.operationId = `${action.meta.arg.id}`;
       })
       .addCase(editContact.pending, (state, action) => {
         state.operation = `edit`;
