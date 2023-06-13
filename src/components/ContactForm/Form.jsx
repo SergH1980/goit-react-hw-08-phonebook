@@ -72,16 +72,10 @@ export default function ContactForm(props) {
           notifySameName(values.name);
         }
         if (props.use === 'edit') {
-          const toCompareName = contact => {
-            return contact.name === values.name;
-          };
-          if (!contactList.some(toCompareName)) {
-            dispatch(editContact(values));
-            props.toggleFunction();
-            notifyEditSuccessful(values.name);
-            return resetForm();
-          }
-          notifySameName(values.name);
+          dispatch(editContact(values));
+          props.toggleFunction();
+          notifyEditSuccessful(values.name);
+          return resetForm();
         }
       }}
     >
