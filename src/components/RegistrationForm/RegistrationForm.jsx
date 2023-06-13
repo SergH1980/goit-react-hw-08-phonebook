@@ -51,7 +51,7 @@ export default function RegistrationForm() {
               password: registrationValues.password,
             })
           );
-          resetForm();
+          // resetForm();
         }}
       >
         <Form>

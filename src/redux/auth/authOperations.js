@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = `https://connections-api.herokuapp.com`;
 
@@ -10,6 +11,43 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
+const toastSettings = {
+  position: 'top-center',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: 'light',
+};
+
+const notifyTextStyle = {
+  textAlign: 'center',
+};
+
+function notifyErrorLogin() {
+  toast.error(
+    <div>
+      <p style={notifyTextStyle}>Error</p>
+      <p style={notifyTextStyle}>Please check your credentials.</p>
+    </div>,
+    toastSettings
+  );
+}
+
+function notifyErrorRegister() {
+  toast.error(
+    <div>
+      <p style={notifyTextStyle}>Error.</p>
+      <p style={notifyTextStyle}>
+        User with provided e-mail is already registered.
+      </p>
+    </div>,
+    toastSettings
+  );
+}
+
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
@@ -18,6 +56,7 @@ export const register = createAsyncThunk(
       setAuthHeader(response.data.token);
       return response.data;
     } catch (e) {
+      notifyErrorRegister();
       return thunkAPI.rejectWithValue(e.message);
     }
   }
@@ -31,6 +70,7 @@ export const logIn = createAsyncThunk(
       setAuthHeader(response.data.token);
       return response.data;
     } catch (e) {
+      notifyErrorLogin();
       return thunkAPI.rejectWithValue(e.message);
     }
   }
