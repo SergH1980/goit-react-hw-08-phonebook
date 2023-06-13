@@ -1,5 +1,4 @@
 import { SiteNavList } from './SiteNav.styled';
-// import { NavLink } from 'react-router-dom';
 import { NavLink } from './SiteNav.styled';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/authSelectors';

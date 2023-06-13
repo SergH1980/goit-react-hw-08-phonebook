@@ -63,6 +63,11 @@ export const SubmitButton = styled.button`
   }
 `;
 
+export const EditButtonsWrap = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
 export const ErrorMessage = styled(ErrorMessageStyle)`
   color: red;
 `;

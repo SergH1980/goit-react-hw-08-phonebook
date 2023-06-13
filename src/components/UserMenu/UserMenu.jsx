@@ -7,7 +7,6 @@ import {
   AvatarImage,
   AvatarLetter,
 } from './UserMenu.styled';
-// import avatar from '../../IMG/18514990.jpg';
 
 export default function UserMenu() {
   const dispatch = useDispatch();

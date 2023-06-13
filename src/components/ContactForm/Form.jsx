@@ -3,13 +3,10 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectContactList,
-  // selectIsLoading,
   selectError,
   selectOperation,
 } from 'redux/contacts/contactSelectors';
-import { addContact } from 'redux/contacts/contactsOperations';
-
-// import Form
+import { addContact, editContact } from 'redux/contacts/contactsOperations';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -19,6 +16,7 @@ import {
   FormLabel,
   Field,
   SubmitButton,
+  EditButtonsWrap,
   ErrorMessage,
 } from './Form.styled';
 
@@ -37,6 +35,10 @@ function notifySameName(data) {
   toast.warn(`${data} is already in contacts`, toastSettings);
 }
 
+function notifyEditSuccessful(data) {
+  toast.success(`${data} was successfully edited!`, toastSettings);
+}
+
 const SignupSchem = Yup.object().shape({
   name: Yup.string()
     .min(3, 'Too Short!')
@@ -48,26 +50,39 @@ const SignupSchem = Yup.object().shape({
     .required(`Please enter valid information`),
 });
 
-export default function ContactForm() {
+export default function ContactForm(props) {
   const dispatch = useDispatch();
   const contactList = useSelector(selectContactList);
   const error = useSelector(selectError);
   const operation = useSelector(selectOperation);
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={props.initialValues}
       validationSchema={SignupSchem}
       onSubmit={(values, { resetForm }) => {
-        const toCompareName = contact => {
-          return contact.name === values.name;
-        };
+        if (props.use === 'add') {
+          const toCompareName = contact => {
+            return contact.name === values.name;
+          };
 
-        if (!contactList.some(toCompareName)) {
-          dispatch(addContact(values));
-          return resetForm();
+          if (!contactList.some(toCompareName)) {
+            dispatch(addContact(values));
+            return resetForm();
+          }
+          notifySameName(values.name);
         }
-
-        notifySameName(values.name);
+        if (props.use === 'edit') {
+          const toCompareName = contact => {
+            return contact.name === values.name;
+          };
+          if (!contactList.some(toCompareName)) {
+            dispatch(editContact(values));
+            props.toggleFunction();
+            notifyEditSuccessful(values.name);
+            return resetForm();
+          }
+          notifySameName(values.name);
+        }
       }}
     >
       <Form>
@@ -90,9 +105,21 @@ export default function ContactForm() {
           required
         />
         <ErrorMessage name="number" component="div" />
-        <SubmitButton name="submit" type="submit" id="add">
-          {operation === 'add' && !error ? `Loading...` : `Add contact`}
-        </SubmitButton>
+        {props.use === 'add' && (
+          <SubmitButton name="submit" type="submit">
+            {operation === 'add' && !error ? `Loading...` : `Add contact`}
+          </SubmitButton>
+        )}
+        {props.use === 'edit' && (
+          <EditButtonsWrap>
+            <SubmitButton name="submit" type="submit">
+              Confirm
+            </SubmitButton>
+            <SubmitButton type="button" onClick={props.toggleFunction}>
+              Cancel
+            </SubmitButton>
+          </EditButtonsWrap>
+        )}
       </Form>
     </Formik>
   );

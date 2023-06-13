@@ -5,12 +5,13 @@ import {
   selectFilteredContacts,
   selectError,
   selectOperation,
+  selectOperationId,
 } from 'redux/contacts/contactSelectors';
 
 import ContactForm from 'components/ContactForm/Form';
 
 import {
-  ContactItemStyled,
+  ContactItemWrap,
   ContactItemName,
   ContactItemNumber,
   ContactItemButton,
@@ -21,14 +22,13 @@ import {
 export default function ContactItem() {
   const dispatch = useDispatch();
   const [editedContact, setEditedContact] = useState(null);
-
   const [isEditingContact, setIsEditingContact] = useState(false);
 
   const error = useSelector(selectError);
   const operation = useSelector(selectOperation);
+  const operationId = useSelector(selectOperationId);
 
   const contacts = useSelector(selectFilteredContacts);
-
   const reverseContacts = [...contacts].reverse();
 
   if (reverseContacts.length < 1) {
@@ -45,43 +45,54 @@ export default function ContactItem() {
     const selectedContact = contacts.find(contact => contact.id === id);
 
     setEditedContact(selectedContact);
+  };
+
+  const toggleEditState = () => {
     setIsEditingContact(!isEditingContact);
-    console.log(isEditingContact);
-    console.log(editedContact);
   };
 
   return reverseContacts.map(contact => (
-    <ContactItemStyled key={contact.id}>
-      {editedContact !== null &&
-      editedContact.id === contact.id &&
-      isEditingContact ? (
-        <ContactForm />
-      ) : (
-        <div>
-          <ContactItemName>{contact.name}:</ContactItemName>
-          <ContactItemNumber>{contact.number}</ContactItemNumber>
-          <ContactItemButtonsWrap>
+    <li key={contact.id}>
+      <ContactItemWrap>
+        <ContactItemName>{contact.name}:</ContactItemName>
+        <ContactItemNumber>{contact.number}</ContactItemNumber>
+        <ContactItemButtonsWrap>
+          {!isEditingContact && (
             <ContactItemButton
               type="button"
               id={contact.id}
               onClick={() => {
                 setSelectedContactData(contact.id);
+                toggleEditState();
               }}
             >
-              Edit
+              {operation === 'edit' && operationId === contact.id && !error
+                ? `Loading...`
+                : `Edit`}
             </ContactItemButton>
-            <ContactItemButton
-              id={contact.id}
-              type="button"
-              onClick={() => {
-                dispatch(deleteContact(contact.id));
-              }}
-            >
-              {operation === contact.id && !error ? `Loading...` : `Delete`}
-            </ContactItemButton>
-          </ContactItemButtonsWrap>
-        </div>
-      )}
-    </ContactItemStyled>
+          )}
+          <ContactItemButton
+            id={contact.id}
+            type="button"
+            onClick={() => {
+              dispatch(deleteContact(contact));
+            }}
+          >
+            {operation === 'delete' && !error && operationId === contact.id
+              ? `Loading...`
+              : `Delete`}
+          </ContactItemButton>
+        </ContactItemButtonsWrap>
+      </ContactItemWrap>
+      {editedContact !== null &&
+        editedContact.id === contact.id &&
+        isEditingContact && (
+          <ContactForm
+            use="edit"
+            initialValues={editedContact}
+            toggleFunction={toggleEditState}
+          />
+        )}
+    </li>
   ));
 }

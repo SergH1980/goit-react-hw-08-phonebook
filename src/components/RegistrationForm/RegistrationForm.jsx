@@ -1,5 +1,4 @@
 import React from 'react';
-// import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/authOperations';
 
@@ -14,21 +13,6 @@ import {
   ErrorMessage,
   RegisterFormHeader,
 } from './RegistrationForm.styled';
-
-// const toastSettings = {
-//   position: 'top-center',
-//   autoClose: 2000,
-//   hideProgressBar: false,
-//   closeOnClick: true,
-//   pauseOnHover: true,
-//   draggable: true,
-//   progress: undefined,
-//   theme: 'light',
-// };
-
-// function notifySameName(data) {
-//   toast.warn(`${data} is already in contacts`, toastSettings);
-// }
 
 const SignupSchem = Yup.object().shape({
   name: Yup.string()
@@ -65,14 +49,6 @@ export default function RegistrationForm() {
             })
           );
           resetForm();
-          //   const toCompareName = contact => {
-          //     return contact.name === values.name;
-          //   };
-          //   if (!contactList.some(toCompareName)) {
-          //     dispatch(addContact(values));
-          //     return resetForm();
-          //   }
-          // notifySameName(values.name);
         }}
       >
         <Form>
