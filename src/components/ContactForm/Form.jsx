@@ -72,10 +72,17 @@ export default function ContactForm(props) {
           notifySameName(values.name);
         }
         if (props.use === 'edit') {
-          dispatch(editContact(values));
-          props.toggleFunction();
-          notifyEditSuccessful(values.name);
-          return resetForm();
+          const nameCheck = contactList.filter(
+            contact => contact.name === values.name && contact.id !== values.id
+          );
+
+          if (nameCheck.length === 0) {
+            dispatch(editContact(values));
+            props.toggleFunction();
+            notifyEditSuccessful(values.name);
+            return resetForm();
+          }
+          notifySameName(values.name);
         }
       }}
     >
