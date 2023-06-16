@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from 'redux/auth/authOperations';
+import usePasswordToggle from 'components/hooks/usePasswordToggle';
 
 import { selectAuthOperation, selectError } from 'redux/auth/authSelectors';
 
@@ -14,6 +15,8 @@ import {
   SubmitButton,
   ErrorMessage,
   LoginFormHeader,
+  PasswordIcon,
+  PasswordWrap,
 } from './LoginForm.styled';
 
 const SignupSchem = Yup.object().shape({
@@ -31,6 +34,8 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const authOperation = useSelector(selectAuthOperation);
   const error = useSelector(selectError);
+
+  const [PasswordInputType, ToggleIcon] = usePasswordToggle();
 
   return (
     <div>
@@ -59,13 +64,17 @@ export default function LoginForm() {
           />
           <ErrorMessage name="email" component="div" />
           <FormLabel htmlFor="password">Password</FormLabel>
-          <Field
-            type="password"
-            name="password"
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
+          <PasswordWrap>
+            <Field
+              type={PasswordInputType}
+              name="password"
+              // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+            />
+            <PasswordIcon>{ToggleIcon}</PasswordIcon>
+          </PasswordWrap>
+
           <ErrorMessage name="password" component="div" />
           <SubmitButton name="submit" type="submit">
             {authOperation === 'login' && !error ? `Loading...` : `Login`}

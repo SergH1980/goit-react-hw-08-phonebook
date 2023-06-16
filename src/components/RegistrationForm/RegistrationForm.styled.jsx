@@ -32,6 +32,17 @@ export const Field = styled(FieldStyle)`
   height: 30px;
   line-height: 30px;
 `;
+export const PasswordWrap = styled.div`
+  position: relative;
+`;
+
+export const PasswordIcon = styled.span`
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 1000;
+  cursor: pointer;
+`;
 
 export const SubmitButton = styled.button`
   max-width: 120px;
